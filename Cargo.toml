@@ -9,3 +9,7 @@ edition = "2021"
 eframe = "0.27"
 egui = "0.27"
 rand = "0.8"
+
+# Strip symbols to reduce executable size in release mode
+[profile.release]
+strip = true
