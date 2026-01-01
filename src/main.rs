@@ -9,7 +9,7 @@ fn main() -> Result<(), eframe::Error> {
     let options = eframe::NativeOptions {
         viewport: egui::ViewportBuilder::default()
             .with_inner_size([400.0, 500.0])
-            .with_title("Générateur de Notes - Entraînement Guitare"),
+            .with_title("Note Generator - Guitar Training"),
         ..Default::default()
     };
 
@@ -91,11 +91,11 @@ impl eframe::App for NoteGeneratorApp {
                 ui.add_space(30.0);
                 
                 // Title
-                ui.heading("🎸 Générateur de Notes");
+                ui.heading("🎸 Note Generator");
                 ui.add_space(20.0);
                 
                 // Display current note
-                ui.label(egui::RichText::new("Note à trouver :")
+                ui.label(egui::RichText::new("Note to find:")
                     .size(16.0)
                     .color(egui::Color32::GRAY));
                 
@@ -110,13 +110,13 @@ impl eframe::App for NoteGeneratorApp {
                 ui.add_space(30.0);
                 
                 // Checkbox for sharp mode
-                ui.checkbox(&mut self.allow_sharp, "Mode avec altérations (dièses/bémols)");
+                ui.checkbox(&mut self.allow_sharp, "Mode with accidentals (sharps/flats)");
                 
                 ui.add_space(10.0);
                 
                 // Toggle for notation format
                 let previous_solfege = self.use_solfege;
-                ui.checkbox(&mut self.use_solfege, "Format classique (Do Ré Mi...)");
+                ui.checkbox(&mut self.use_solfege, "Classical format (Do Ré Mi...)");
                 
                 // If format changed, convert current note
                 if previous_solfege != self.use_solfege {
@@ -130,12 +130,12 @@ impl eframe::App for NoteGeneratorApp {
                 ui.add_space(10.0);
                 
                 // Checkbox to enable timer
-                ui.checkbox(&mut self.timer_enabled, "Timer automatique");
+                ui.checkbox(&mut self.timer_enabled, "Automatic timer");
                 
                 if self.timer_enabled {
                     ui.add_space(5.0);
                     ui.horizontal(|ui| {
-                        ui.label("Intervalle (secondes):");
+                        ui.label("Interval (seconds):");
                         ui.add(egui::Slider::new(&mut self.timer_interval_seconds, 1.0..=30.0)
                             .step_by(0.5)
                             .suffix(" s"));
@@ -145,7 +145,7 @@ impl eframe::App for NoteGeneratorApp {
                     let current_time = ctx.input(|i| i.time);
                     let elapsed = current_time - self.last_update_time;
                     let remaining = (self.timer_interval_seconds - elapsed).max(0.0);
-                    ui.label(egui::RichText::new(format!("Prochaine note dans: {:.1} s", remaining))
+                    ui.label(egui::RichText::new(format!("Next note in: {:.1} s", remaining))
                         .size(11.0)
                         .color(egui::Color32::from_rgb(100, 150, 255)));
                 }
@@ -153,7 +153,7 @@ impl eframe::App for NoteGeneratorApp {
                 ui.add_space(15.0);
                 
                 // Button to generate a new note
-                if ui.button(egui::RichText::new("🎲 Nouvelle Note")
+                if ui.button(egui::RichText::new("🎲 New Note")
                         .size(18.0))
                     .clicked() {
                       let new_note = generate_random_note(self.allow_sharp, self.use_solfege);
@@ -167,14 +167,14 @@ impl eframe::App for NoteGeneratorApp {
                 ui.add_space(20.0);
                 
                 // Information
-                ui.label(egui::RichText::new("Trouvez cette note sur votre manche de guitare !")
+                ui.label(egui::RichText::new("Find this note on your guitar fretboard!")
                     .size(12.0)
                     .color(egui::Color32::DARK_GRAY)
                     .italics());
                 
                 ui.add_space(5.0);
                 
-                ui.label(egui::RichText::new("Appuyez sur Espace ou cliquez sur le bouton pour une nouvelle note")
+                ui.label(egui::RichText::new("Press Space or click the button for a new note")
                     .size(11.0)
                     .color(egui::Color32::DARK_GRAY)
                     .italics());
