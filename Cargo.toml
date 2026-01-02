@@ -1,5 +1,5 @@
 [package]
-name = "note-generator"
+name = "fretboard-trainer"
 version = "0.1.0"
 edition = "2021"
 
@@ -9,6 +9,9 @@ edition = "2021"
 eframe = "0.27"
 egui = "0.27"
 rand = "0.8"
+
+[build-dependencies]
+winres = "0.1"
 
 # Strip symbols to reduce executable size in release mode
 [profile.release]
