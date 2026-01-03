@@ -49,6 +49,68 @@ rustc --version
 cargo --version
 ```
 
+## 🔨 Compilation
+
+This section provides platform-specific instructions for compiling the project.
+
+### Windows
+
+On Windows, the project compiles natively using the MSVC toolchain (default).
+
+1. **Ensure Rust is installed** (see Prerequisites section above)
+
+2. **Build the project**:
+   ```bash
+   cargo build --release
+   ```
+
+3. **The executable** will be located at:
+   ```
+   target/release/note-generator.exe
+   ```
+
+**Note**: The project uses `winres` as a build dependency to set Windows-specific resources (icon, version info, etc.). This is automatically handled during compilation.
+
+### macOS
+
+On macOS, the project can be compiled for both Intel (x86_64) and Apple Silicon (ARM64) architectures.
+
+1. **Ensure Rust is installed** (see Prerequisites section above)
+
+2. **Install Xcode Command Line Tools** (if not already installed):
+   ```bash
+   xcode-select --install
+   ```
+
+3. **Add the appropriate target** (if needed):
+   - For Apple Silicon (M1/M2/M3):
+     ```bash
+     rustup target add aarch64-apple-darwin
+     ```
+   - For Intel Macs:
+     ```bash
+     rustup target add x86_64-apple-darwin
+     ```
+
+4. **Build the project**:
+   - For your current architecture:
+     ```bash
+     cargo build --release
+     ```
+   - For a specific architecture (e.g., Apple Silicon):
+     ```bash
+     cargo build --release --target aarch64-apple-darwin
+     ```
+
+5. **The executable** will be located at:
+   ```
+   target/release/note-generator
+   ```
+   or for a specific target:
+   ```
+   target/aarch64-apple-darwin/release/note-generator
+   ```
+
 ## 📦 Project Installation
 
 1. Clone or download this project
